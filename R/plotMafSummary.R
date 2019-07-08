@@ -80,11 +80,11 @@ plotmafSummary = function(maf, rmOutlier = TRUE, dashboard = TRUE, titvRaw = TRU
       par(mar = c(2, 2, 3, 1))
       b = barplot(vcs, col = col[rownames(vcs)], border = NA, axes = FALSE, names.arg =  rep("", ncol(vcs)))
     }
-
-    axis(side = 2, at = as.integer(seq(0, max(colSums(vcs)), length.out = 4)), lwd = 2, font = 2, las = 2,
+    if (!is.null(dim(vcs))) {  ## edited by ZG
+         axis(side = 2, at = as.integer(seq(0, max(colSums(vcs)), length.out = 4)), lwd = 2, font = 2, las = 2,
          line = -0.3, hadj = 0.6, cex.axis = fs)
-    title(main = "Variants per sample", adj = 0, cex.main = titleSize[1], font = 2, line = 2)
-
+         title(main = "Variants per sample", adj = 0, cex.main = titleSize[1], font = 2, line = 2)
+    }
     if(!is.null(addStat)){
       if(addStat == 'mean'){
         med.line = round(maf@summary[nrow(maf@summary),Mean], 2)
